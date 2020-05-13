@@ -36,6 +36,7 @@ gem 'simple_form'
 gem 'bootstrap-sass'
 
 gem 'ckeditor'
+gem 'devise'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
