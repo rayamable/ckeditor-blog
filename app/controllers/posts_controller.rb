@@ -1,10 +1,10 @@
 class PostsController < ApplicationController
   before_action :authenticate_admin!, except: [:index, :show]
-  before_action :find_post, only: [:edit, :update, :show, :delete]
+  before_action :find_post, only: [:edit, :update, :show, :destroy]
 
   # Index action to render all posts
   def index
-    @posts = Post.all
+    @posts = Post.all.order(created_at: :desc)
   end
 
   # New action for creating post
@@ -14,8 +14,8 @@ class PostsController < ApplicationController
 
   # Create action saves the post into database
   def create
-    @post = Post.new
-    if @post.save(post_params)
+    @post = Post.new(post_params)
+    if @post.save
       flash[:notice] = "Successfully created post!"
       redirect_to post_path(@post)
     else
@@ -26,6 +26,7 @@ class PostsController < ApplicationController
 
   # Edit action retrives the post and renders the edit page
   def edit
+    @post = Post.find(params[:id])
   end
 
   # Update action updates the post with the new information
